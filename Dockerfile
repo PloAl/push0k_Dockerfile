@@ -22,6 +22,6 @@ RUN apt-get update && apt-get install -y apt-utils \
         && sudo -u postgres psql -a -f /usr/bin/push0k/push0kStructure.sql \
         && service postgresql stop \
         && sed 's/192.168.0.10/127.0.0.1/g' /usr/bin/push0k/config.js
-COPY --chown=root supervisord.conf /etc/supervisor/supervisord.conf        
+COPY supervisord.conf /etc/supervisor/supervisord.conf        
 VOLUME ["/public"]
 CMD ["/usr/bin/supervisord","-n","-c /etc/supervisor/supervisord.conf"]
