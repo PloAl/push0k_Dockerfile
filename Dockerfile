@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y apt-utils \
                 postgresql-pro-1c-9.6 postgresql-client-pro-1c-9.6 postgresql-contrib-pro-1c-9.6 \
                 openssh-server apache2 supervisor imagemagick libgsf-1-114 gosu mc unixodbc ttf-mscorefonts-installer curl git \
         && mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor \
-        && curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs \
+        && curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs \
         && cd /usr/bin \
         && git clone https://github.com/ploal/push0k \
         && chmod -R 755 /usr/bin/push0k \
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y apt-utils \
         && sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'YourPassword'" \
         && sudo -u postgres psql -a -f /usr/bin/push0k/push0kStructure.sql \
         && service postgresql stop \
-        && sed 's/192.168.0.10/127.0.0.1/g' /usr/bin/push0k/config.js
+        && sed 's/192.168.0.10/127.0.0.1/g' /usr/bin/push0k/starter_cfg.js
 COPY supervisord.conf /etc/supervisor/supervisord.conf        
 VOLUME ["/public"]
 CMD ["/usr/bin/supervisord","-n","-c /etc/supervisor/supervisord.conf"]
